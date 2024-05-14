@@ -1,10 +1,11 @@
 <template>
-  <div>
-    <h1>ERMP</h1>
-  </div>
+  <nav>
+    <RouterLink></RouterLink>
+  </nav>
 </template>
 
 <script setup>
+import { RouterLink } from 'vue-router'
 
 </script>
 
