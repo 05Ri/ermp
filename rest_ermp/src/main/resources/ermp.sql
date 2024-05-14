@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS `ERMP`;
+CREATE DATABASE IF NOT EXISTS `ERMP_DB`;
 
-USE `ERMP`;
+USE `ERMP_DB`;
 
 CREATE TABLE IF NOT EXISTS `user` (
 	`user_id` varchar(20) PRIMARY KEY,
@@ -14,28 +14,16 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `attendence` (
 	`user_id` varchar(20),
     `day` DATE DEFAULT (current_date),
-    
     FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 )
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `plan` (
+CREATE TABLE IF NOT EXISTS `exercise_log` (
 	`user_id` varchar(20),
     `day` DATE NOT NULL,
     `start_time` INT,
     `ent_time` INT,
     `type` varchar(20),
-    `goal_amount` INT,
-    `unit` varchar(20),
-    
-    FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-)
-ENGINE = InnoDB;
-
-CREATE TABLE IF NOT EXISTS `exercise_log`(
-	`user_id` varchar(20),
-    `type` varchar(20),
-    `day` DATE DEFAULT (current_date),
     `amount` INT,
     `unit` varchar(20),
     

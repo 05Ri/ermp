@@ -6,19 +6,24 @@ public class ExerciseLog {
 	private String userId;
 	private String type;
 	private Date day;
+	private int startTime;
+	private int endTime;
 	private int amount;
 	private String unit;
 	
 	public ExerciseLog() {
 	}
 
-	public ExerciseLog(String userId, String type, Date day, int amount, String unit) {
+	public ExerciseLog(String userId, String type, Date day, int startTime, int endTime, int amount, String unit) {
 		this.userId = userId;
 		this.type = type;
 		this.day = day;
+		this.startTime = startTime;
+		this.endTime = endTime;
 		this.amount = amount;
 		this.unit = unit;
 	}
+
 
 	public String getUserId() {
 		return userId;
@@ -43,6 +48,23 @@ public class ExerciseLog {
 	public void setDay(Date day) {
 		this.day = day;
 	}
+	
+
+	public int getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(int startTime) {
+		this.startTime = startTime;
+	}
+
+	public int getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(int endTime) {
+		this.endTime = endTime;
+	}
 
 	public int getAmount() {
 		return amount;
@@ -62,7 +84,8 @@ public class ExerciseLog {
 
 	@Override
 	public String toString() {
-		return "ExerciseLog [userId=" + userId + ", type=" + type + ", day=" + day + ", amount=" + amount + ", unit="
-				+ unit + "]";
+		return "ExerciseLog [userId=" + userId + ", type=" + type + ", day=" + day + ", startTime=" + startTime
+				+ ", endTime=" + endTime + ", amount=" + amount + ", unit=" + unit + "]";
 	}
+
 }

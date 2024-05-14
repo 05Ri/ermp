@@ -1,5 +1,5 @@
 package com.ssafy.ermp.model.dao;
 
-public class ExerciseLogDao {
+public interface ExerciseLogDao {
 
 }
