@@ -1,7 +1,5 @@
 package com.ssafy.ermp.model.service;
 
-import java.sql.SQLIntegrityConstraintViolationException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
