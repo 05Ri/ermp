@@ -25,12 +25,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean checkId(String userId) {
-		return dao.checkId(userId) == 0; 
+		return dao.checkId(userId) > 0; 
 	}
 
 	@Override
 	public boolean checkEmail(String email) {
-		return dao.checkId(email) == 0; 
+		return dao.checkId(email) >  0; 
 	}
 
 }
