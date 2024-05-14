@@ -24,11 +24,21 @@ public class ERMPController {
 	ExerciseLogService eService;
 	
 	
-	@PostMapping
+	@PostMapping("/user")
 	public ResponseEntity<?> login(@RequestBody User user) {
 		System.out.println(user);
 		User loginUser = uService.login(user);
 		System.out.println(loginUser);
 		return new ResponseEntity<User>(loginUser, HttpStatus.OK) ;
+	}
+	
+	@PostMapping("/user/regist")
+	public ResponseEntity<?> regist(@RequestBody User user) {
+		if (uService.checkId(user.getUserId()))
+			return new ResponseEntity<String>("아이디 중복",HttpStatus.BAD_REQUEST);
+		if (uService.checkEmail(user.getEmail()))
+			return new ResponseEntity<String>("이메일 중복",HttpStatus.BAD_REQUEST);
+		uService.regist(user);
+		return new ResponseEntity<Void>(HttpStatus.CREATED) ;
 	}
 }

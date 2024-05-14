@@ -1,5 +1,7 @@
 package com.ssafy.ermp.model.service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,20 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User login(User user) {
 		return dao.selectUser(user);
+	}
+	
+	public void regist(User user) {
+		dao.insertUser(user);
+	}
+
+	@Override
+	public boolean checkId(String userId) {
+		return dao.checkId(userId) == 0; 
+	}
+
+	@Override
+	public boolean checkEmail(String email) {
+		return dao.checkId(email) == 0; 
 	}
 
 }
