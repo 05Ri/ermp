@@ -1,4 +1,5 @@
 // import './assets/main.css'
+import './assets/font/SKYBORI.ttf'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'

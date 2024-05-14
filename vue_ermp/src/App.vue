@@ -8,6 +8,14 @@ import { RouterView } from 'vue-router'
 </script>
 
 
-<style scoped>
+<style>
+@font-face {
+  font-family: 'SKYBORI';
+  src: url(assets/font/SKYBORI.ttf);
+  font-weight: 400;
+}
 
+* {
+  font-family: 'SKYBORI';
+}
 </style>
