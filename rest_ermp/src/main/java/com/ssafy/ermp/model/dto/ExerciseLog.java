@@ -1,11 +1,9 @@
 package com.ssafy.ermp.model.dto;
 
-import java.util.Date;
-
 public class ExerciseLog {
 	private String userId;
 	private String type;
-	private Date day;
+	private String day;
 	private int startTime;
 	private int endTime;
 	private int amount;
@@ -14,7 +12,7 @@ public class ExerciseLog {
 	public ExerciseLog() {
 	}
 
-	public ExerciseLog(String userId, String type, Date day, int startTime, int endTime, int amount, String unit) {
+	public ExerciseLog(String userId, String type, String day, int startTime, int endTime, int amount, String unit) {
 		this.userId = userId;
 		this.type = type;
 		this.day = day;
@@ -41,11 +39,11 @@ public class ExerciseLog {
 		this.type = type;
 	}
 
-	public Date getDay() {
+	public String getDay() {
 		return day;
 	}
 
-	public void setDay(Date day) {
+	public void setDay(String day) {
 		this.day = day;
 	}
 	

@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS `ERMP_DB`;
 CREATE DATABASE IF NOT EXISTS `ERMP_DB`;
 
 USE `ERMP_DB`;
@@ -22,9 +23,10 @@ CREATE TABLE IF NOT EXISTS `exercise_log` (
 	`user_id` varchar(20),
     `day` DATE NOT NULL,
     `start_time` INT,
-    `ent_time` INT,
+    `end_time` INT,
     `type` varchar(20),
-    `amount` INT,
+    `goal_amount` INT,
+    `achieve_amount` INT,
     `unit` varchar(20),
     
     FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
