@@ -1,6 +1,7 @@
 <template>
   <div>
-    <p>환영해요! 😀</p>
+    <h1>환영해요! 😀</h1>
+    <p>운동 목록을 관리하고 통계를 볼 수 있는 Exercise Routine Management Planner 입니다!</p>
     <div>
       <label for="id">ID</label>
       <input type="text" id="id" v-model="user.userId" />
