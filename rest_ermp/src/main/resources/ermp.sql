@@ -23,8 +23,6 @@ CREATE TABLE IF NOT EXISTS `routine` (
 	`log_id` INT AUTO_INCREMENT PRIMARY KEY,
 	`user_id` varchar(20),
     `day` DATE NOT NULL,
-    `start_time` INT,
-    `end_time` INT,
     `type` varchar(20),
     `goal_amount` INT,
     `achieve_amount` INT,

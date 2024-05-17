@@ -1,27 +1,34 @@
 package com.ssafy.ermp.model.dto;
 
 public class Routine {
+	private int logId;
 	private String userId;
-	private String type;
 	private String day;
-	private int startTime;
-	private int endTime;
-	private int amount;
+	private String type;
+	private int goalAmount;
+	private int achieveAmount;
 	private String unit;
 	
 	public Routine() {
 	}
 
-	public Routine(String userId, String type, String day, int startTime, int endTime, int amount, String unit) {
+	public Routine(int logId, String userId, String day, String type, int goalAmount, int achieveAmount, String unit) {
+		this.logId = logId;
 		this.userId = userId;
-		this.type = type;
 		this.day = day;
-		this.startTime = startTime;
-		this.endTime = endTime;
-		this.amount = amount;
+		this.type = type;
+		this.goalAmount = goalAmount;
+		this.achieveAmount = achieveAmount;
 		this.unit = unit;
 	}
 
+	public int getLogId() {
+		return logId;
+	}
+
+	public void setLogId(int logId) {
+		this.logId = logId;
+	}
 
 	public String getUserId() {
 		return userId;
@@ -29,6 +36,14 @@ public class Routine {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public String getDay() {
+		return day;
+	}
+
+	public void setDay(String day) {
+		this.day = day;
 	}
 
 	public String getType() {
@@ -39,37 +54,20 @@ public class Routine {
 		this.type = type;
 	}
 
-	public String getDay() {
-		return day;
+	public int getGoalAmount() {
+		return goalAmount;
 	}
 
-	public void setDay(String day) {
-		this.day = day;
-	}
-	
-
-	public int getStartTime() {
-		return startTime;
+	public void setGoalAmount(int goalAmount) {
+		this.goalAmount = goalAmount;
 	}
 
-	public void setStartTime(int startTime) {
-		this.startTime = startTime;
+	public int getAchieveAmount() {
+		return achieveAmount;
 	}
 
-	public int getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(int endTime) {
-		this.endTime = endTime;
-	}
-
-	public int getAmount() {
-		return amount;
-	}
-
-	public void setAmount(int amount) {
-		this.amount = amount;
+	public void setAchieveAmount(int achieveAmount) {
+		this.achieveAmount = achieveAmount;
 	}
 
 	public String getUnit() {
@@ -82,8 +80,8 @@ public class Routine {
 
 	@Override
 	public String toString() {
-		return "ExerciseLog [userId=" + userId + ", type=" + type + ", day=" + day + ", startTime=" + startTime
-				+ ", endTime=" + endTime + ", amount=" + amount + ", unit=" + unit + "]";
+		return "Routine [logId=" + logId + ", userId=" + userId + ", day=" + day + ", type=" + type + ", goalAmount="
+				+ goalAmount + ", achieveAmount=" + achieveAmount + ", unit=" + unit + "]";
 	}
 
 }

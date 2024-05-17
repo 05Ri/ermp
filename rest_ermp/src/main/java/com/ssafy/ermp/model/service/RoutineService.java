@@ -6,5 +6,8 @@ import com.ssafy.ermp.model.dto.Routine;
 
 public interface RoutineService {
 	// 루틴 가져오기
-	List<Routine> getRoutines(String userId);
+	List<Routine> getRoutines(String userId, String day);
+	
+	// 루틴 수정
+	List<Routine> ModifyRoutine(int logId);
 }

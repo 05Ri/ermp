@@ -70,7 +70,7 @@ public class ERMPController {
 	
 	@GetMapping("/routine")
 	public ResponseEntity<?> getRoutines(@RequestParam("userId") String userId, String day) {
-		List<Routine> routines = rService.getRoutines(userId);
+		List<Routine> routines = rService.getRoutines(userId, day);
 		return new ResponseEntity<List<Routine>>(routines, HttpStatus.OK);
 	}
 }
