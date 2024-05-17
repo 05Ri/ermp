@@ -18,4 +18,9 @@ import { RouterView } from 'vue-router'
 * {
   font-family: 'SKYBORI';
 }
+
+a {
+  text-decoration: none;
+  color:black;
+}
 </style>

@@ -20,7 +20,7 @@ export const useERMPStore = defineStore('ermp', () => {
 
   // 로그인
   const login = function(user) {
-    console.log(user)
+    // console.log(user)
     axios.post(REST_API_ERMP + '/user', user)
     .then((response) => {
       sessionStorage.setItem("loginUser", JSON.stringify(response))
