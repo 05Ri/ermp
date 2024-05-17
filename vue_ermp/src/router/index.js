@@ -6,6 +6,8 @@ import LoginPage from '../components/login/LoginPage.vue'
 import RoutinePage from '@/components/routine/RoutinePage.vue'
 import StatisticsPage from '@/components/statistics/StatisticsPage.vue'
 
+import AddRoutinePage from '@/components/routine/AddRoutinePage.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -28,6 +30,11 @@ const router = createRouter({
       path: '/routine',
       name: 'routine',
       component: RoutinePage,
+    },
+    {
+      path: '/routine/add',
+      name: 'addRoutine',
+      component: AddRoutinePage,
     },
     {
       path: '/statistics',

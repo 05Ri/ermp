@@ -13,6 +13,7 @@ import { ref, onMounted } from 'vue'
 import axios from 'axios'
 
 const user = JSON.parse(sessionStorage.loginUser).data
+let today = new Date()
 
 const attributes = ref([
   {
@@ -20,8 +21,8 @@ const attributes = ref([
     dates: []
   },
   {
-    dot: 'red',
-    dates: today.toLocaDateString('ko-KR')
+    highlight: 'red',
+    dates: today.toLocaleDateString()
   }
 ])
 

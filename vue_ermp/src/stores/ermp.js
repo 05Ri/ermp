@@ -29,8 +29,39 @@ export const useERMPStore = defineStore('ermp', () => {
     })
   }
 
+  // 루틴 만들기
+  const addRoutine = function(routineList) {
+    // console.log(routineList)
+    axios.post(REST_API_ERMP + '/routine', routineList)
+    .then(() => {
+      router.push({name: 'routine'})
+    })
+  }
+
+  // 루틴 리스트 가져오기
+  const routineList = ref([])
+  const getRoutineList = function(day, userId) {
+    axios.get(REST_API_ERMP + '/routine', { params: { day: day, userId: userId }})
+    .then((response) => {
+      routineList.value = response.data
+    })
+  }
+
+  // 루틴 삭제
+  const deleteRoutine = function(logId) {
+    axios.delete(REST_API_ERMP + '/routine', {data: { logId }})
+    .then(() => {
+      router.go()
+    })
+  }
+
   return {
     regist,
     login,
+    addRoutine,
+    routineList,
+    getRoutineList,
+    deleteRoutine,
+
   }
 })

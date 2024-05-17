@@ -19,7 +19,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 			dao.insertAttendance(userId);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			return false;
 		}
 	}
