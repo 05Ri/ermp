@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.ermp.model.dto.Routine;
 import com.ssafy.ermp.model.dto.User;
 import com.ssafy.ermp.model.service.AttendanceService;
-import com.ssafy.ermp.model.service.ExerciseLogService;
+import com.ssafy.ermp.model.service.RoutineService;
 import com.ssafy.ermp.model.service.UserService;
 
 @RestController
@@ -26,7 +27,7 @@ public class ERMPController {
 	UserService uService;
 
 	@Autowired
-	ExerciseLogService eService;
+	RoutineService rService;
 	
 	@Autowired
 	AttendanceService aService;
@@ -63,8 +64,13 @@ public class ERMPController {
 	// 출석 체크 리스트 가져오기
 	@GetMapping("/attendance")
 	public ResponseEntity<?> getAttendanceDayList(@RequestParam("userId") String userId) {
-		
 		List<String> attendanceDayList = aService.getList(userId);
 		return new ResponseEntity<List<String>>(attendanceDayList, HttpStatus.OK);
+	}
+	
+	@GetMapping("/routine")
+	public ResponseEntity<?> getRoutines(@RequestParam("userId") String userId, String day) {
+		List<Routine> routines = rService.getRoutines(userId);
+		return new ResponseEntity<List<Routine>>(routines, HttpStatus.OK);
 	}
 }

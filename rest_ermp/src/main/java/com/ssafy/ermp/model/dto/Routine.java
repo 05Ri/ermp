@@ -1,6 +1,6 @@
 package com.ssafy.ermp.model.dto;
 
-public class ExerciseLog {
+public class Routine {
 	private String userId;
 	private String type;
 	private String day;
@@ -9,10 +9,10 @@ public class ExerciseLog {
 	private int amount;
 	private String unit;
 	
-	public ExerciseLog() {
+	public Routine() {
 	}
 
-	public ExerciseLog(String userId, String type, String day, int startTime, int endTime, int amount, String unit) {
+	public Routine(String userId, String type, String day, int startTime, int endTime, int amount, String unit) {
 		this.userId = userId;
 		this.type = type;
 		this.day = day;

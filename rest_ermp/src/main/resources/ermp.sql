@@ -11,7 +11,6 @@ CREATE TABLE IF NOT EXISTS `user` (
 )
 ENGINE = InnoDB;
 
-
 CREATE TABLE IF NOT EXISTS `attendance` (
 	`user_id` varchar(20),
     `day` DATE DEFAULT (current_date),
@@ -20,18 +19,18 @@ CREATE TABLE IF NOT EXISTS `attendance` (
 )
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `exercise_log` (
+CREATE TABLE IF NOT EXISTS `routine` (
+	`log_id` INT AUTO_INCREMENT PRIMARY KEY,
 	`user_id` varchar(20),
     `day` DATE NOT NULL,
     `start_time` INT,
-    `ent_time` INT,
+    `end_time` INT,
     `type` varchar(20),
-    `amount` INT,
+    `goal_amount` INT,
+    `achieve_amount` INT,
     `unit` varchar(20),
     
     FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 )
 ENGINE = InnoDB;
 
-INSERT INTO `user`
-VALUES ("ssafy", "김싸피", '1234', 'ssafy@ssafy.com');
