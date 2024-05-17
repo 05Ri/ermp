@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>회원가입</h1>
+    <h2>회원가입</h2>
     <div>
       <label for="id">ID</label>
       <input type="text" id="id" v-model="user.userId"/>

@@ -1,8 +1,14 @@
 <template>
-  <RouterView />
+  <div>
+    <TheHeader />
+  </div>
+  <div>
+    <RouterView />
+  </div>
 </template>
 
 <script setup>
+import TheHeader from '@/components/common/TheHeader.vue'
 import { RouterView } from 'vue-router'
 
 </script>

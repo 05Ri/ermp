@@ -12,10 +12,11 @@ CREATE TABLE IF NOT EXISTS `user` (
 ENGINE = InnoDB;
 
 
-CREATE TABLE IF NOT EXISTS `attendence` (
+CREATE TABLE IF NOT EXISTS `attendance` (
 	`user_id` varchar(20),
     `day` DATE DEFAULT (current_date),
-    FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+    FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
+    PRIMARY KEY (`user_id`, `day`)
 )
 ENGINE = InnoDB;
 
@@ -23,13 +24,14 @@ CREATE TABLE IF NOT EXISTS `exercise_log` (
 	`user_id` varchar(20),
     `day` DATE NOT NULL,
     `start_time` INT,
-    `end_time` INT,
+    `ent_time` INT,
     `type` varchar(20),
-    `goal_amount` INT,
-    `achieve_amount` INT,
+    `amount` INT,
     `unit` varchar(20),
     
     FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 )
 ENGINE = InnoDB;
 
+INSERT INTO `user`
+VALUES ("ssafy", "김싸피", '1234', 'ssafy@ssafy.com');

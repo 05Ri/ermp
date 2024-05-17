@@ -24,6 +24,7 @@ export const useERMPStore = defineStore('ermp', () => {
     axios.post(REST_API_ERMP + '/user', user)
     .then((response) => {
       sessionStorage.setItem("loginUser", JSON.stringify(response))
+      router.go()
       router.replace({name: 'home'})
     })
   }
