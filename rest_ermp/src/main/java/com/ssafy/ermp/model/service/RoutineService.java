@@ -9,8 +9,11 @@ public interface RoutineService {
 	List<Routine> getRoutines(String userId, String day);
 	
 	// 루틴 수정
-	Routine modifyRoutine(Routine routine);
+	void modifyRoutine(Routine routine);
 	
 	// 루틴 추가
 	void addRoutines(List<Routine> routines);
+	
+	// 루틴 삭제
+	void deleteRoutine(int logId);
 }

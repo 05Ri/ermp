@@ -27,8 +27,8 @@ public class RoutineServiceImpl implements RoutineService {
 	}
 
 	@Override
-	public Routine modifyRoutine(Routine routine) {
-		return dao.updateRoutine(routine);
+	public void modifyRoutine(Routine routine) {
+		dao.updateRoutine(routine);
 	}
 
 
@@ -47,6 +47,11 @@ public class RoutineServiceImpl implements RoutineService {
 			dao.insertRoutine(routine);
 			curr = curr.plus(routine.getPeriod(), ChronoUnit.DAYS);
 		}
+	}
+
+	@Override
+	public void deleteRoutine(int logId) {
+		dao.deleteRoutine(logId);
 	}
 
 

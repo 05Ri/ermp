@@ -19,4 +19,10 @@
 		SET type = #{type}, goal_amount = #{goalAmount}, unit = #{unit}
 		WHERE log_id = #{logId}
 	</update>
+	
+	<delete id="deleteRoutine" parameterType="int">
+		DELETE FROM routine
+		WHERE log_id = #{logId}
+	</delete>
+	
 </mapper>

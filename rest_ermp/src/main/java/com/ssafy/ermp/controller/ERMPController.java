@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -34,6 +35,8 @@ public class ERMPController {
 	AttendanceService aService;
 	
 	
+	////////// 회원 //////////
+	
 	@PostMapping("/user")
 	public ResponseEntity<?> login(@RequestBody User user) {
 		System.out.println(user);
@@ -52,6 +55,8 @@ public class ERMPController {
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 	
+	////////// 출석 체크 //////////
+	
 	// 출석 체크 하기
 	@PostMapping("/attendance")
 	public ResponseEntity<?> attendanceCheck(@RequestBody User user) {
@@ -69,6 +74,9 @@ public class ERMPController {
 		return new ResponseEntity<List<String>>(attendanceDayList, HttpStatus.OK);
 	}
 	
+	
+	//////////// 루틴 //////////
+	
 	// 루틴 가져오기
 	@GetMapping("/routine")
 	public ResponseEntity<?> getRoutines(@RequestParam("userId") String userId, String day) {
@@ -76,15 +84,24 @@ public class ERMPController {
 		return new ResponseEntity<List<Routine>>(routines, HttpStatus.OK);
 	}
 	
+	// 루틴 추가
 	@PostMapping("/routine")
 	public ResponseEntity<?> addRoutines(@RequestBody List<Routine> routine) {
 		rService.addRoutines(routine);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 	
+	// 루틴 수정	
 	@PutMapping("/routine")
 	public ResponseEntity<?> modifyRoutines(@RequestBody Routine routine) {
 		rService.modifyRoutine(routine);
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	// 루틴 삭제
+	@DeleteMapping("/routine")
+	public ResponseEntity<?> deleteRoutines(@RequestBody Routine routine) {
+		rService.deleteRoutine(routine.getLogId());
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }

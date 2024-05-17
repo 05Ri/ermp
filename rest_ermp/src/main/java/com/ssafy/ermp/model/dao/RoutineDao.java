@@ -11,6 +11,8 @@ public interface RoutineDao {
 	
 	void insertRoutine(Routine routine);
 
-	Routine updateRoutine(Routine routine);
+	void updateRoutine(Routine routine);
+
+	void deleteRoutine(int logId);
 	
 }
