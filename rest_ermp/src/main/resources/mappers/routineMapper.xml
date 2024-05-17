@@ -8,4 +8,9 @@
 		FROM routine
 		WHERE user_id = #{userId} and day = #{day}
 	</select>
+	
+	<insert id="insertRoutine" parameterType="Routine">
+		INSERT INTO routine
+		VALUES(0,#{userId},#{day}, #{type}, #{goalAmount}, #{achieveAmount},#{unit})
+	</insert>
 </mapper>

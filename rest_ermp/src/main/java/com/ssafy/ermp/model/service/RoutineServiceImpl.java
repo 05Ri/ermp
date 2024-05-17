@@ -1,5 +1,7 @@
 package com.ssafy.ermp.model.service;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +33,15 @@ public class RoutineServiceImpl implements RoutineService {
 
 	@Override
 	public void addRoutines(Routine routine) {
-		
+		LocalDate curr = LocalDate.parse(routine.getStartDate());
+		LocalDate end = LocalDate.parse(routine.getEndDate());
+		while(curr.compareTo(end)<=0) {
+			routine.setDay(curr.toString());
+			dao.insertRoutine(routine);
+			curr = curr.plus(routine.getPeriod(), ChronoUnit.DAYS);
+		}
 	}
+	
+
 
 }
