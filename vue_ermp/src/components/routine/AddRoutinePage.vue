@@ -92,7 +92,6 @@ const routineList = ref([routine.value])
 
 // 루틴 추가
 const addRoutine = () => {
-  routineList.value.push(routine.value)
   if (checkOne()) {
     store.addRoutine(routineList.value)
   } else {
