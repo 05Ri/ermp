@@ -6,6 +6,6 @@ public interface AttendanceService {
 
 	List<String> getList(String userId);
 
-	void check(String userId);
+	boolean check(String userId);
 
 }

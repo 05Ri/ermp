@@ -14,8 +14,14 @@ public class AttendanceServiceImpl implements AttendanceService {
 	AttendanceDao dao;
 	
 	@Override
-	public void check(String userId) {
-		dao.insertAttendance(userId);
+	public boolean check(String userId) {
+		try {
+			dao.insertAttendance(userId);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	@Override

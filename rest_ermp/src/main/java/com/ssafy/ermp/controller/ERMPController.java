@@ -52,14 +52,18 @@ public class ERMPController {
 	
 	// 출석 체크 하기
 	@PostMapping("/attendance")
-	public ResponseEntity<?> attendanceCheck(@RequestParam("userId") String userId) {
-		aService.check(userId);
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
+	public ResponseEntity<?> attendanceCheck(@RequestBody User user) {
+		String userId = user.getUserId();
+		System.out.println(userId);
+		if (aService.check(userId))
+			return new ResponseEntity<Void>(HttpStatus.CREATED);
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 	
 	// 출석 체크 리스트 가져오기
 	@GetMapping("/attendance")
 	public ResponseEntity<?> getAttendanceDayList(@RequestParam("userId") String userId) {
+		
 		List<String> attendanceDayList = aService.getList(userId);
 		return new ResponseEntity<List<String>>(attendanceDayList, HttpStatus.OK);
 	}
