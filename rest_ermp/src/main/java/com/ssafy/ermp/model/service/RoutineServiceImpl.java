@@ -21,13 +21,17 @@ public class RoutineServiceImpl implements RoutineService {
 		Map<String, String> map = new HashMap<>();
 		map.put("userId", userId);
 		map.put("day", day);
-		return dao.SelectRoutines(map);
+		return dao.selectRoutines(map);
 	}
 
 	@Override
-	public List<Routine> ModifyRoutine(int logId) {
-		// TODO Auto-generated method stub
-		return null;
+	public void ModifyRoutine(int logId) {
+		
+	}
+
+	@Override
+	public void addRoutines(Routine routine) {
+		
 	}
 
 }

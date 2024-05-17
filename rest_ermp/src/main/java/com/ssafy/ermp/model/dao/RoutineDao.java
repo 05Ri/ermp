@@ -7,6 +7,8 @@ import com.ssafy.ermp.model.dto.Routine;
 
 public interface RoutineDao {
 
-	List<Routine> SelectRoutines(Map<String, String> map);
+	List<Routine> selectRoutines(Map<String, String> map);
+	
+	void insertRoutine(Routine routine);
 	
 }

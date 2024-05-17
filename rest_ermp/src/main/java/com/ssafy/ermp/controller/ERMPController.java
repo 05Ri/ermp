@@ -68,9 +68,16 @@ public class ERMPController {
 		return new ResponseEntity<List<String>>(attendanceDayList, HttpStatus.OK);
 	}
 	
+	// 루틴 가져오기
 	@GetMapping("/routine")
 	public ResponseEntity<?> getRoutines(@RequestParam("userId") String userId, String day) {
 		List<Routine> routines = rService.getRoutines(userId, day);
 		return new ResponseEntity<List<Routine>>(routines, HttpStatus.OK);
+	}
+	
+	@PostMapping("/routine")
+	public ResponseEntity<?> addRoutines(@RequestBody Routine routine) {
+		rService.addRoutines(routine);
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 }
