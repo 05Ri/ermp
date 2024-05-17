@@ -54,5 +54,15 @@ public class RoutineServiceImpl implements RoutineService {
 		dao.deleteRoutine(logId);
 	}
 
+	@Override
+	public void completeRoutine(int logId, int achieveAmount) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("logId", logId);
+		map.put("achieveAmount", achieveAmount);		
+		dao.updateAchieveAmount(map);
+	}
+	
+	
+
 
 }

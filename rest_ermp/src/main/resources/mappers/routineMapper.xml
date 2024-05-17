@@ -25,4 +25,10 @@
 		WHERE log_id = #{logId}
 	</delete>
 	
+	<update id="updateAchieveAmount" parameterType="Map">
+		UPDATE routine
+		SET achieve_amount = #{achieveAmount}
+		WHERE log_id = #{logId}
+	</update>
+	
 </mapper>

@@ -77,31 +77,77 @@ public class ERMPController {
 	
 	//////////// 루틴 //////////
 	
-	// 루틴 가져오기
+
+	/** 루틴 가져오기
+	 * params : 
+	 * {
+	 * 		"userId": "userId"
+	 * 		"day": "2024-05-17" 
+	 * }
+	 * (쿼리스트링)
+	 */
 	@GetMapping("/routine")
-	public ResponseEntity<?> getRoutines(@RequestParam("userId") String userId, String day) {
+	public ResponseEntity<?> getRoutines(@RequestParam("userId") String userId, @RequestParam("day") String day) {
 		List<Routine> routines = rService.getRoutines(userId, day);
 		return new ResponseEntity<List<Routine>>(routines, HttpStatus.OK);
 	}
 	
-	// 루틴 추가
+	/** 루틴 추가
+	 * params : 
+	 * {
+	 * 	  "userId": "ssafy",
+	 *    "type": "복근",
+	 *	  "goalAmount": 30,
+	 *	  "unit": "회",
+	 *	  "startDate": "2024-05-17",
+	 *	  "endDate": "2024-05-31",
+	 *	  "period": 3
+	 *	}
+	 */
 	@PostMapping("/routine")
 	public ResponseEntity<?> addRoutines(@RequestBody List<Routine> routine) {
 		rService.addRoutines(routine);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 	
-	// 루틴 수정	
+	/** 루틴 수정
+	 * params : 
+	 * {
+	 * 	  "logId": 4,
+	 *    "type": "복근",
+	 *	  "goalAmount": 30,
+	 *	  "unit": "회",
+	 *  }
+	 */
 	@PutMapping("/routine")
-	public ResponseEntity<?> modifyRoutines(@RequestBody Routine routine) {
+	public ResponseEntity<?> modifyRoutine(@RequestBody Routine routine) {
 		rService.modifyRoutine(routine);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	// 루틴 삭제
+	/** 루틴 삭제
+	 * params : 
+	 * {
+	 * 	  "logId": 4
+	 *  }
+	 */
 	@DeleteMapping("/routine")
-	public ResponseEntity<?> deleteRoutines(@RequestBody Routine routine) {
+	public ResponseEntity<?> deleteRoutine(@RequestBody Routine routine) {
 		rService.deleteRoutine(routine.getLogId());
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	
+	/** 루틴 완료 체크
+	 * params : 
+	 * {
+	 * 	  "logId": 4,
+	 *	  "achieveAmount": 30,
+	 *  }
+	 */
+	@PutMapping("/routine/check")
+	public ResponseEntity<?> completeRoutine(@RequestBody Routine routine) {
+		rService.completeRoutine(routine.getLogId(), routine.getAchieveAmount());
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }

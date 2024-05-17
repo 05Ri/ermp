@@ -16,4 +16,7 @@ public interface RoutineService {
 	
 	// 루틴 삭제
 	void deleteRoutine(int logId);
+	
+	// 루틴 완료
+	void completeRoutine(int logId, int achieveAmount);
 }

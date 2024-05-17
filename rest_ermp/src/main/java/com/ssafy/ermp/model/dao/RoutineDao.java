@@ -14,5 +14,7 @@ public interface RoutineDao {
 	void updateRoutine(Routine routine);
 
 	void deleteRoutine(int logId);
+
+	void updateAchieveAmount(Map<String, Integer> map);
 	
 }
