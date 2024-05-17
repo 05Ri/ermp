@@ -13,4 +13,10 @@
 		INSERT INTO routine
 		VALUES(0,#{userId},#{day}, #{type}, #{goalAmount}, #{achieveAmount},#{unit})
 	</insert>
+	
+	<update id="updateRoutine" parameterType="Routine">
+		UPDATE routine
+		SET type = #{type}, goal_amount = #{goalAmount}, unit = #{unit}
+		WHERE log_id = #{logId}
+	</update>
 </mapper>

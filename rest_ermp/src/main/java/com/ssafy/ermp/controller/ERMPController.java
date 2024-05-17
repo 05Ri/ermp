@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -76,8 +77,14 @@ public class ERMPController {
 	}
 	
 	@PostMapping("/routine")
-	public ResponseEntity<?> addRoutines(@RequestBody Routine routine) {
+	public ResponseEntity<?> addRoutines(@RequestBody List<Routine> routine) {
 		rService.addRoutines(routine);
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/routine")
+	public ResponseEntity<?> modifyRoutines(@RequestBody Routine routine) {
+		rService.modifyRoutine(routine);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 }

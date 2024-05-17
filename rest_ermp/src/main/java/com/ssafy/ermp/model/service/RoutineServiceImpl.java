@@ -27,11 +27,18 @@ public class RoutineServiceImpl implements RoutineService {
 	}
 
 	@Override
-	public void ModifyRoutine(int logId) {
-		
+	public Routine modifyRoutine(Routine routine) {
+		return dao.updateRoutine(routine);
 	}
 
+
 	@Override
+	public void addRoutines(List<Routine> routines) {
+		for(Routine routine: routines) {
+			addRoutines(routine);
+		}
+	}
+	
 	public void addRoutines(Routine routine) {
 		LocalDate curr = LocalDate.parse(routine.getStartDate());
 		LocalDate end = LocalDate.parse(routine.getEndDate());
@@ -41,7 +48,6 @@ public class RoutineServiceImpl implements RoutineService {
 			curr = curr.plus(routine.getPeriod(), ChronoUnit.DAYS);
 		}
 	}
-	
 
 
 }

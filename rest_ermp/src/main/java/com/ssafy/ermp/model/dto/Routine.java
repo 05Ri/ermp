@@ -18,7 +18,7 @@ public class Routine {
 	}
 
 	public Routine(int logId, String userId, String day, String type, int goalAmount, int achieveAmount, String unit,
-			String startDate, String endDate) {
+			String startDate, String endDate, int period) {
 		this.logId = logId;
 		this.userId = userId;
 		this.day = day;

@@ -10,5 +10,7 @@ public interface RoutineDao {
 	List<Routine> selectRoutines(Map<String, String> map);
 	
 	void insertRoutine(Routine routine);
+
+	Routine updateRoutine(Routine routine);
 	
 }
