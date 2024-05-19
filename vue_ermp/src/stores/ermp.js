@@ -47,6 +47,23 @@ export const useERMPStore = defineStore('ermp', () => {
     })
   }
 
+  // 루틴 완료 & 성취 취소
+  const sendAmount = function(routine) {
+    axios.put(REST_API_ERMP + '/routine/check', routine)
+    .then(() => {
+
+    })
+  }
+
+  // 루틴 수정
+  const modifyRoutine = function(routine, day, userId) {
+    // console.log(routine)
+    axios.put(REST_API_ERMP + '/routine', routine)
+    .then(() => {
+      getRoutineList(day, userId)
+    })
+  }
+
   // 루틴 삭제
   const deleteRoutine = function(logId) {
     axios.delete(REST_API_ERMP + '/routine', {data: { logId }})
@@ -61,6 +78,8 @@ export const useERMPStore = defineStore('ermp', () => {
     addRoutine,
     routineList,
     getRoutineList,
+    sendAmount,
+    modifyRoutine,
     deleteRoutine,
 
   }

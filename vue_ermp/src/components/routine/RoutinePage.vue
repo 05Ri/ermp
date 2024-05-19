@@ -6,7 +6,7 @@
     <button @click="addRoutine">+ 루틴 추가</button>
   </div>
 
-  <div v-if="store.routineList === null">
+  <div v-if="store.routineList == ''">
     <h3>등록된 루틴이 없습니다</h3>
   </div>
   <div v-else>
@@ -17,22 +17,41 @@
         <th>완료/수정/삭제</th>
       </tr>
       <tr v-for="(routine, index) in store.routineList" :key="index">
-        <!-- 운동 루틴 이름 -->
         <td>{{ routine.type }}</td>
         <td>
-          <input type="number" /> / {{ routine.goalAmount }}{{ routine.unit }}
+          <input type="number" :disabled="isComplete" v-model="achieveAmount" /> / {{ routine.goalAmount }}{{ routine.unit }}
         </td>
         <td>
           <!-- 완료/달성 버튼 토글 시 수정 버튼 설정 달라지도록 -->
-          <button type="button" class="btn btn-success">✔</button>
+          <button
+            v-if="!isComplete"
+            type="button"
+            class="btn btn-success"
+            @click="[toggleRoutine(), sendAmount(routine.logId)]"
+          >✔</button>
+          <button
+            v-else
+            type="button"
+            class="btn btn-warning"
+            @click="[toggleRoutine(), sendAmount(routine.logId)]"
+          >🏆</button>
 
           <!-- 모달 수정 버튼 -->
-          <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            ✏
-          </button>
+          <button
+            type="button"
+            :class="['btn', isComplete ? 'btn-secondary' : 'btn-info']"
+            :disabled="isComplete"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+            @click="setCurrentRoutine(routine)"
+          >✏</button>
 
           <!-- 삭제 버튼 -->
-          <button @click="deleteRoutine(routine.logId)" type="button" class="btn btn-danger">✖</button>
+          <button
+            @click="deleteRoutine(routine.logId)"
+            type="button"
+            class="btn btn-danger"
+          >✖</button>
         </td>
       </tr>
     </table>
@@ -48,10 +67,25 @@
         </div>
         <!-- 해당 데이터의 type, amount, unit 값 가져와서 수정할 수 있게 하기 -->
         <div class="modal-body">
-          ...
+          <div>
+            <label for="type">운동 이름</label>
+            <input type="text" id="type" v-model="currentRoutine.type" />
+          </div>
+          <div>
+            <label for="amount">목표 횟수</label>
+            <input type="number" id="amount" v-model="currentRoutine.goalAmount" />
+          </div>
+          <div>
+            <label for="unit">단위</label>
+            <select for="unit" id="unit" v-model="currentRoutine.unit">
+              <option value="회">회</option>
+              <option value="분">분</option>
+              <option value="km">km</option>
+            </select>
+          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">수정</button>
+          <button type="button" class="btn btn-primary" @click="modifyRoutine">수정</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
         </div>
       </div>
@@ -63,6 +97,7 @@
 import { onMounted, ref } from 'vue'
 import router from '@/router'
 import { useERMPStore } from '@/stores/ermp.js'
+
 
 
 const store = useERMPStore()
@@ -78,7 +113,7 @@ const masks = ref({
 
 const date = ref(today)
 
-// 오늘 빨간색
+// 오늘 날짜를 빨간색으로 표시
 const attributes = ref([
   {
     highlight: 'red',
@@ -90,6 +125,30 @@ const attributes = ref([
 const addRoutine = (() => {
   router.push({name: 'addRoutine'})
 })
+
+// 루틴 완료 버튼 토글되었는지 확인하는 변수
+const isComplete = ref(false)
+
+// 루틴 완료 버튼 누르면 성취 버튼으로 바뀜
+const toggleRoutine = (() => {
+  isComplete.value = !isComplete.value
+})
+
+// 루틴 완료 시 보낼 값 & 취소 시 보낼 값
+const achieveAmount = ref(0)
+const sendAmount = (logId) => {
+  const sendData = {
+    logId: logId,
+    achieveAmount: 0,
+  }
+
+  if(!isComplete.value) {
+    store.sendAmount(sendData)
+  } else {
+    sendData.achieveAmount = achieveAmount.value
+    store.sendAmount(sendData)
+  }
+}
 
 // 루틴 삭제 버튼
 const deleteRoutine = (logId) => {
@@ -105,6 +164,29 @@ const getDateRoutineList = () => {
 onMounted (() => {
   store.getRoutineList(today, user.userId)
 })
+
+// 현재 루틴 값 바인딩
+const currentRoutine = ref({
+  type: "",
+  goalAmount: 0,
+  unit: "",
+  logId: ""
+})
+
+const setCurrentRoutine = (routine) => {
+  currentRoutine.value = {
+    type: routine.type,
+    goalAmount: routine.goalAmount,
+    unit: routine.unit,
+    logId: routine.logId
+  }
+}
+
+// 루틴 수정
+const modifyRoutine = () => {
+  store.modifyRoutine(currentRoutine.value, date.value, user.userId)
+  document.querySelector('.btn-close').click()
+}
 
 </script>
 
