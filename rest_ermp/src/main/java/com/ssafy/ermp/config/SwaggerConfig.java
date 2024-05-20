@@ -21,10 +21,10 @@ public class SwaggerConfig {
  
     private Info apiInfo() {
 		return new Info()
-				.title("SSAFIT 영상 관리 API")
-				.description("<h3>SSAFY 관통 프로젝트 - Spring</h3>")
+				.title("ERMP Test")
+				.description("<h3>Exercise Routine Managemant Project - Spring</h3>")
 				.version("1.0")
-				.contact(new Contact().name("SSAFY").url("http://ssafy.com").email("ssafy@ssafy.com"))
+				.contact(new Contact().name("ERMP").url("http://localhost:5173").email("yh980827@naver.com"))
 				.license(new License().name("[김예현] [김진현]"));
 	}
 }

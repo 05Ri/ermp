@@ -21,9 +21,13 @@ import com.ssafy.ermp.model.service.AttendanceService;
 import com.ssafy.ermp.model.service.RoutineService;
 import com.ssafy.ermp.model.service.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/ermp-api")
+@Tag(name="ERMP Rest Controller", description="ERMP 기능들 CRUD")
 public class ERMPController {
 	@Autowired
 	UserService uService;
@@ -38,6 +42,7 @@ public class ERMPController {
 	////////// 회원 //////////
 	
 	@PostMapping("/user")
+	@Operation(summary = "회원 로그인", description = "회원의 아이디와 비밀번호로 로그인")
 	public ResponseEntity<?> login(@RequestBody User user) {
 		System.out.println(user);
 		User loginUser = uService.login(user);
@@ -46,6 +51,7 @@ public class ERMPController {
 	}
 	
 	@PostMapping("/user/regist")
+	@Operation(summary = "회원가입", description = "ID, PW, 이름, 이메일로 가입 가능")
 	public ResponseEntity<?> regist(@RequestBody User user) {
 		if (uService.checkId(user.getUserId()))
 			return new ResponseEntity<String>("아이디 중복",HttpStatus.BAD_REQUEST);
@@ -59,6 +65,7 @@ public class ERMPController {
 	
 	// 출석 체크 하기
 	@PostMapping("/attendance")
+	@Operation(summary = "출석 체크", description = "로그인 시 오늘 날짜로 바로 출석체크시킵니다.")
 	public ResponseEntity<?> attendanceCheck(@RequestBody User user) {
 		String userId = user.getUserId();
 		System.out.println(userId);
@@ -69,6 +76,7 @@ public class ERMPController {
 	
 	// 출석 체크 리스트 가져오기
 	@GetMapping("/attendance")
+	@Operation(summary = "출석 체크 리스트 가져오기", description = "달력에 표시하기 위해 출석체크한 날을 가져옵니다.")
 	public ResponseEntity<?> getAttendanceDayList(@RequestParam("userId") String userId) {
 		List<String> attendanceDayList = aService.getList(userId);
 		return new ResponseEntity<List<String>>(attendanceDayList, HttpStatus.OK);
@@ -87,6 +95,7 @@ public class ERMPController {
 	 * (쿼리스트링)
 	 */
 	@GetMapping("/routine")
+	@Operation(summary = "루틴 가져오기", description = "사용자가 선택한 날의 루틴을 가져옵니다.")
 	public ResponseEntity<?> getRoutines(@RequestParam("userId") String userId, @RequestParam("day") String day) {
 		List<Routine> routines = rService.getRoutines(userId, day);
 		return new ResponseEntity<List<Routine>>(routines, HttpStatus.OK);
@@ -105,6 +114,7 @@ public class ERMPController {
 	 *	}
 	 */
 	@PostMapping("/routine")
+	@Operation(summary = "루틴 추가", description = "사용자가 입력한 데이터들을 가져와서 모두 추가시킵니다.")
 	public ResponseEntity<?> addRoutines(@RequestBody List<Routine> routine) {
 		rService.addRoutines(routine);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
@@ -120,6 +130,7 @@ public class ERMPController {
 	 *  }
 	 */
 	@PutMapping("/routine")
+	@Operation(summary = "루틴 수정", description = "사용자가 루틴을 추가할 때의 데이터를 수정합니다.")
 	public ResponseEntity<?> modifyRoutine(@RequestBody Routine routine) {
 		rService.modifyRoutine(routine);
 		return new ResponseEntity<Void>(HttpStatus.OK);
@@ -132,6 +143,7 @@ public class ERMPController {
 	 *  }
 	 */
 	@DeleteMapping("/routine")
+	@Operation(summary = "루틴 삭제", description = "사용자가 선택한 루틴 하나를 삭제합니다")
 	public ResponseEntity<?> deleteRoutine(@RequestBody Routine routine) {
 		rService.deleteRoutine(routine.getLogId());
 		return new ResponseEntity<Void>(HttpStatus.OK);
@@ -146,6 +158,7 @@ public class ERMPController {
 	 *  }
 	 */
 	@PutMapping("/routine/check")
+	@Operation(summary = "루틴 완료", description = "사용자가 달성한 수치를 입력 후 완료 버튼을 누르면 그 달성한 수치를 DB에 저장한다.")
 	public ResponseEntity<?> completeRoutine(@RequestBody Routine routine) {
 		rService.completeRoutine(routine.getLogId(), routine.getAchieveAmount());
 		return new ResponseEntity<Void>(HttpStatus.OK);
@@ -162,6 +175,7 @@ public class ERMPController {
 	 * return: [day, type, goalAmount] 
 	 */
 	@GetMapping("/statistics")
+	@Operation(summary = "통계 데이터 수집 후 보내기", description = "시작 날짜와 끝 날짜를 기준으로 사용자가 달성한 운동 이름과 달성 수치, 달성한 날들을 모두 보내준다.")
 	public ResponseEntity<?> getAcheieveAmount(@RequestParam("userId") String userId, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) {
 		List<Routine> routineList = rService.getAcheieveRoutineList(userId, startDate, endDate);
 		return new ResponseEntity<List<Routine>>(routineList, HttpStatus.OK);
