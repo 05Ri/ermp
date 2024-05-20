@@ -162,8 +162,8 @@ public class ERMPController {
 	 * return: [day, type, goalAmount] 
 	 */
 	@GetMapping("/statistics")
-	public ResponseEntity<?> getAcheieveAmount(@RequestBody Routine routine) {
-		List<Routine> routineList = rService.getAcheieveRoutineList(routine.getUserId(), routine.getStartDate(), routine.getEndDate());
+	public ResponseEntity<?> getAcheieveAmount(@RequestParam("userId") String userId, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) {
+		List<Routine> routineList = rService.getAcheieveRoutineList(userId, startDate, endDate);
 		return new ResponseEntity<List<Routine>>(routineList, HttpStatus.OK);
 	}
 }

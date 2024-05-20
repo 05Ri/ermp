@@ -35,7 +35,8 @@
 		SELECT *
 		FROM routine
 		WHERE day BETWEEN #{startDate} AND #{endDate}
-		AND userId = #{userId}
+		AND user_id = #{userId}
+		AND achieve_amount != 0
 	</select>
 	
 </mapper>
