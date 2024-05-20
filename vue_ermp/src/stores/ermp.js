@@ -44,6 +44,9 @@ export const useERMPStore = defineStore('ermp', () => {
     axios.get(REST_API_ERMP + '/routine', { params: { day: day, userId: userId }})
     .then((response) => {
       routineList.value = response.data
+      routineList.value.forEach(function(routine) {
+        return routine.isComplete = routine.achieveAmount > 0
+      })
     })
   }
 

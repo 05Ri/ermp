@@ -19,28 +19,28 @@
       <tr v-for="(routine, index) in store.routineList" :key="index">
         <td>{{ routine.type }}</td>
         <td>
-          <input type="number" :disabled="routine.isComplete" v-model="routine.achieveAmount" /> / {{ routine.goalAmount }}{{ routine.unit }}
+          <input type="number" :disabled="isComplete" v-model="achieveAmount" /> / {{ routine.goalAmount }}{{ routine.unit }}
         </td>
         <td>
           <!-- 완료/달성 버튼 토글 시 수정 버튼 설정 달라지도록 -->
           <button
-            v-if="!routine.isComplete"
+            v-if="!isComplete"
             type="button"
             class="btn btn-success"
-            @click="[toggleRoutine(routine), sendAmount(routine.logId)]"
+            @click="[toggleRoutine(), sendAmount(routine.logId)]"
           >✔</button>
           <button
             v-else
             type="button"
             class="btn btn-warning"
-            @click="[toggleRoutine(routine), sendAmount(routine.logId)]"
+            @click="[toggleRoutine(), sendAmount(routine.logId)]"
           >🏆</button>
 
           <!-- 모달 수정 버튼 -->
           <button
             type="button"
-            :class="['btn', routine.isComplete ? 'btn-secondary' : 'btn-info']"
-            :disabled="routine.isComplete"
+            :class="['btn', isComplete ? 'btn-secondary' : 'btn-info']"
+            :disabled="isComplete"
             data-bs-toggle="modal"
             data-bs-target="#staticBackdrop"
             @click="setCurrentRoutine(routine)"
@@ -126,19 +126,28 @@ const addRoutine = (() => {
   router.push({name: 'addRoutine'})
 })
 
+// 루틴 완료 버튼 토글되었는지 확인하는 변수
+const isComplete = ref(false)
+
 // 루틴 완료 버튼 누르면 성취 버튼으로 바뀜
-const toggleRoutine = ((routine) => {
-  routine.isComplete = !routine.isComplete
-  sendAmount(routine)
+const toggleRoutine = (() => {
+  isComplete.value = !isComplete.value
 })
 
 // 루틴 완료 시 보낼 값 & 취소 시 보낼 값
-const sendAmount = (routine) => {
+const achieveAmount = ref(0)
+const sendAmount = (logId) => {
   const sendData = {
-    logId: routine.logId,
-    achieveAmount: routine.isComplete ? routine.achieveAmount : 0,
+    logId: logId,
+    achieveAmount: 0,
   }
-  store.sendAmount(sendData)
+
+  if(!isComplete.value) {
+    store.sendAmount(sendData)
+  } else {
+    sendData.achieveAmount = achieveAmount.value
+    store.sendAmount(sendData)
+  }
 }
 
 // 루틴 삭제 버튼
@@ -161,6 +170,7 @@ const currentRoutine = ref({
   type: "",
   goalAmount: 0,
   unit: "",
+  logId: ""
 })
 
 const setCurrentRoutine = (routine) => {
