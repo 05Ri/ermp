@@ -31,4 +31,11 @@
 		WHERE log_id = #{logId}
 	</update>
 	
+	<select id="selectAchiveRoutineList" parameterType="Map" resultType="Routine">
+		SELECT *
+		FROM routine
+		WHERE day BETWEEN #{startDate} AND #{endDate}
+		AND userId = #{userId}
+	</select>
+	
 </mapper>

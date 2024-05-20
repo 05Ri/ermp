@@ -61,6 +61,15 @@ public class RoutineServiceImpl implements RoutineService {
 		map.put("achieveAmount", achieveAmount);		
 		dao.updateAchieveAmount(map);
 	}
+
+	@Override
+	public List<Routine> getAcheieveRoutineList(String userId, String startDate, String endDate) {
+		Map<String, String> map = new HashMap<>();
+		map.put("userId", userId);
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		return dao.selectAchiveRoutineList(map);
+	}
 	
 	
 

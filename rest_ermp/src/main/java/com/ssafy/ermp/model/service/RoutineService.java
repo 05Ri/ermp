@@ -19,4 +19,7 @@ public interface RoutineService {
 	
 	// 루틴 완료
 	void completeRoutine(int logId, int achieveAmount);
+
+	// 통계 낼 루틴 리스트를 가져온다
+	List<Routine> getAcheieveRoutineList(String userId, String startDate, String endDate);
 }

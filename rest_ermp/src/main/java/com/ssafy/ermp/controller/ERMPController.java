@@ -150,4 +150,20 @@ public class ERMPController {
 		rService.completeRoutine(routine.getLogId(), routine.getAchieveAmount());
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
+	
+	/** 통계 시작날 ~ 끝날
+	 * params:
+	 * {
+	 * 		"userId": "ssafy",
+	 *		"startDate": "2024-04-30",
+	 *		"endDate": "2024-05-14"
+	 * }
+	 * 
+	 * return: [day, type, goalAmount] 
+	 */
+	@GetMapping("/statistics")
+	public ResponseEntity<?> getAcheieveAmount(@RequestBody Routine routine) {
+		List<Routine> routineList = rService.getAcheieveRoutineList(routine.getUserId(), routine.getStartDate(), routine.getEndDate());
+		return new ResponseEntity<List<Routine>>(routineList, HttpStatus.OK);
+	}
 }

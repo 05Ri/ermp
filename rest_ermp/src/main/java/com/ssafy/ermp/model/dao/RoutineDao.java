@@ -16,5 +16,6 @@ public interface RoutineDao {
 	void deleteRoutine(int logId);
 
 	void updateAchieveAmount(Map<String, Integer> map);
-	
+
+	List<Routine> selectAchiveRoutineList(Map<String, String> map);
 }
