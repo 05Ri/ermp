@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.ermp.model.dto.ChartData;
 import com.ssafy.ermp.model.dto.Routine;
 import com.ssafy.ermp.model.dto.User;
 import com.ssafy.ermp.model.service.AttendanceService;
@@ -47,6 +48,10 @@ public class ERMPController {
 		System.out.println(user);
 		User loginUser = uService.login(user);
 		System.out.println(loginUser);
+		if (loginUser == null)
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+		// 비번 비공개 처리후 전송 
+		loginUser.setPassword("비공개처리되었습니다");
 		return new ResponseEntity<User>(loginUser, HttpStatus.OK) ;
 	}
 	
@@ -54,12 +59,24 @@ public class ERMPController {
 	@Operation(summary = "회원가입", description = "ID, PW, 이름, 이메일로 가입 가능")
 	public ResponseEntity<?> regist(@RequestBody User user) {
 		if (uService.checkId(user.getUserId()))
-			return new ResponseEntity<String>("아이디 중복",HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("아이디 중복",HttpStatus.CONFLICT);
 		if (uService.checkEmail(user.getEmail()))
-			return new ResponseEntity<String>("이메일 중복",HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("이메일 중복",HttpStatus.CONFLICT);
 		uService.regist(user);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
+	
+	@PostMapping("/user/check")
+	@Operation(summary = "중복확인", description = "ID, 이메일 중복 확인")
+	public ResponseEntity<?> doubleCheck(@RequestBody User user) {
+		if (uService.checkId(user.getUserId()))
+			return new ResponseEntity<String>("아이디 중복",HttpStatus.CONFLICT);
+		if (uService.checkEmail(user.getEmail()))
+			return new ResponseEntity<String>("이메일 중복",HttpStatus.CONFLICT);
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
+	
+	
 	
 	////////// 출석 체크 //////////
 	
@@ -178,6 +195,9 @@ public class ERMPController {
 	@Operation(summary = "통계 데이터 수집 후 보내기", description = "시작 날짜와 끝 날짜를 기준으로 사용자가 달성한 운동 이름과 달성 수치, 달성한 날들을 모두 보내준다.")
 	public ResponseEntity<?> getAcheieveAmount(@RequestParam("userId") String userId, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) {
 		List<Routine> routineList = rService.getAcheieveRoutineList(userId, startDate, endDate);
-		return new ResponseEntity<List<Routine>>(routineList, HttpStatus.OK);
+		ChartData data = new ChartData(routineList, startDate, endDate);
+		System.out.println(data);
+		
+		return new ResponseEntity<ChartData>(data, HttpStatus.OK);
 	}
 }

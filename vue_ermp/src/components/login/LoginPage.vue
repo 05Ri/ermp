@@ -1,18 +1,18 @@
 <template>
   <div>
-    <p>환영해요! 😀</p>
+    <h3>환영해요! 😀</h3>
     <p>운동 목록을 관리하고 통계를 볼 수 있는 Exercise Routine Management Planner 입니다!</p>
-    <div>
-      <label for="id">ID</label>
-      <input type="text" id="id" v-model="user.userId" />
+    <div class="loginbox container d-flex flex-column align-items-center row p-4">
+      <div>
+        <input class="form-control" type="text" id="id" v-model="user.userId" placeholder="아이디" @keyup.enter="doLogin" />
+      </div>
+      <div>
+        <input class="form-control mb-3" type="password" id="password" v-model="user.password" placeholder="비밀번호" @keyup.enter="doLogin" />
+      </div>
+      
+      <button class="btn btn-primary" @click="doLogin">로그인</button>
+      <button class="btn btn-light" @click="goToRegist">회원가입</button>
     </div>
-    <div>
-      <label for="password">PW</label>
-      <input type="password" id="password" v-model="user.password" />
-    </div>
-
-    <button @click="doLogin">로그인</button>
-    <button @click="goToRegist">회원가입</button>
   </div>
 </template>
 
@@ -39,5 +39,8 @@ const goToRegist = () => {
 </script>
 
 <style scoped>
-
+/* .loginbox {
+  background-color: aliceblue;
+  width: 20rem;
+} */
 </style>

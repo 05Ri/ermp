@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.ermp.model.dao.RoutineDao">
+	<select id="selectRoutines" parameterType="Map" resultType="Routine">
+		SELECT *
+		FROM routine
+		WHERE user_id = #{userId} and day = #{day}
+	</select>
+	
+	<insert id="insertRoutine" parameterType="Routine">
+		INSERT INTO routine
+		VALUES(0,#{userId},#{day}, #{type}, #{goalAmount}, #{achieveAmount},#{unit})
+	</insert>
+	
+	<update id="updateRoutine" parameterType="Routine">
+		UPDATE routine
+		SET type = #{type}, goal_amount = #{goalAmount}, unit = #{unit}
+		WHERE log_id = #{logId}
+	</update>
+	
+	<delete id="deleteRoutine" parameterType="int">
+		DELETE FROM routine
+		WHERE log_id = #{logId}
+	</delete>
+	
+	<update id="updateAchieveAmount" parameterType="Map">
+		UPDATE routine
+		SET achieve_amount = #{achieveAmount}
+		WHERE log_id = #{logId}
+	</update>
+	
+	<select id="selectAchiveRoutineList" parameterType="Map" resultType="Routine">
+		SELECT *
+		FROM routine
+		WHERE day BETWEEN #{startDate} AND #{endDate}
+		AND user_id = #{userId}
+		AND achieve_amount != 0
+	</select>
+	
+</mapper>

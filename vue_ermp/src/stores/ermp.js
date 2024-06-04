@@ -27,6 +27,9 @@ export const useERMPStore = defineStore('ermp', () => {
       router.go()
       router.replace({name: 'home'})
     })
+    .catch(() => {
+      alert("다시 한번 확인해주세요!")
+    })
   }
 
   // 루틴 만들기
@@ -75,6 +78,38 @@ export const useERMPStore = defineStore('ermp', () => {
     })
   }
 
+
+  // 차트데이터 가져오기
+  const chartData = ref({
+    // list of dates, from startDate to endDate
+    labels: ['일-7', '일-6', '일-5', '일-4', '일-3', '일-2', '일-1', '일'],
+    
+    datasets: [
+      {
+        label: '운동타입 1',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        data: [65, 59, 80, 81, 56, 55, 40]
+      },
+      {
+        label: '운동타입 2',
+        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+        borderColor: 'rgba(153, 102, 255, 1)',
+        borderWidth: 1,
+        data: [28, 48, 40, 19, 86, 27, 90]
+      }
+    ]
+  })
+  const getChartData = function(startDate, endDate, userId) {
+    // console.log(userId);
+    axios.get(REST_API_ERMP + '/statistics', {params:{startDate, endDate, userId}})
+    .then((response)=> {
+      // console.log(response.data)
+      chartData.value = response.data;
+      // console.log(chartData.value)
+    })
+  }
+
+
   return {
     regist,
     login,
@@ -84,6 +119,8 @@ export const useERMPStore = defineStore('ermp', () => {
     sendAmount,
     modifyRoutine,
     deleteRoutine,
+    getChartData,
+    chartData,
 
   }
 })

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.ermp.model.dao.AttendanceDao">
+
+	<insert id="insertAttendance" parameterType="String">
+		INSERT INTO attendance(user_id)
+		VALUES (#{userId})
+	</insert>
+
+	<select id="getAttendanceDateList" parameterType="String" resultType="String">
+		SELECT day
+		FROM attendance
+		WHERE user_id = #{user_id}
+	</select>
+	
+	
+
+</mapper>
